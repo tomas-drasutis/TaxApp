@@ -33,6 +33,15 @@ namespace TaxApp.Controllers
         }
 
         [HttpGet]
+        [Route("{id}/date/{date}")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetTaxesByDate([FromRoute] Guid id, [FromRoute] DateTime date)
+        {
+            return new OkObjectResult(await _municipalitiesService.GetTaxByDate(id, date));
+        }
+
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<MunicipalityResponse>), 200)]
         public async Task<IActionResult> GetAll()
         {

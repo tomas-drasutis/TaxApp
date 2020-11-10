@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TaxApp.Contracts.Incoming;
-using TaxApp.Contracts.Outgoing;
 using TaxApp.Models.Domain;
 using TaxApp.Models.Entities;
+using TaxApp.Services.DomainServices;
 using TaxApp.Services.Repositories;
 
 namespace TaxApp.Services.Services.Implementations
@@ -39,6 +40,24 @@ namespace TaxApp.Services.Services.Implementations
         public async Task<Municipality> GetById(Guid id)
         {
             return _mapper.Map<Municipality>(await _municipalitiesRepository.GetById(id));
+        }
+
+        public async Task<decimal> GetTaxByDate(Guid id, DateTime date)
+        {
+            var municipality = await _municipalitiesRepository.GetByIdWithRelated(id);
+
+            var taxesByDate = municipality.Taxes
+                .Where(t => t.PeriodStartDate <= date && date <= t.PeriodEndDate)
+                .ToList();
+
+            if (!taxesByDate.Any())
+            {
+                throw new Exception();
+            }
+
+            return taxesByDate
+                .OrderBy(t => (t.PeriodEndDate - t.PeriodStartDate).Days + 1)
+                .First().Value;
         }
 
         public async Task<Municipality> Update(Guid id, MunicipalityRequest model)

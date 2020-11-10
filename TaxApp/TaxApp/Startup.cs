@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TaxApp.Middleware;
 using TaxApp.Persistance;
+using TaxApp.Services.DomainService.Implementations;
+using TaxApp.Services.DomainServices;
 using TaxApp.Services.Mapper;
 using TaxApp.Services.Repositories;
 using TaxApp.Services.Repositories.Implementations;
@@ -40,6 +42,7 @@ namespace TaxApp
 
             services.AddScoped<IMunicipalitiesService, MunicipalitiesService>();
             services.AddScoped<ITaxesService, TaxesService>();
+            services.AddScoped<ITaxPeriodService, TaxPeriodService>();
 
             services.AddScoped<IMunicipalitiesRepository, MunicipalitiesRepository>();
             services.AddScoped<ITaxesRepository, TaxesRepository>();

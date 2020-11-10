@@ -49,6 +49,20 @@ namespace TaxApp.Services.Repositories.Implementations
             return municipality;
         }
 
+        public async Task<MunicipalityEntity> GetByIdWithRelated(Guid id)
+        {
+            var municipality = await _databaseContext.Municipalities
+                .Include(e=> e.Taxes)
+                .FirstOrDefaultAsync(e => e.Id == id); ;
+
+            if (municipality == null)
+            {
+                throw new Exception();
+            }
+
+            return municipality;
+        }
+
         public async Task<MunicipalityEntity> Update(Guid id, MunicipalityEntity entity)
         {
             var municipality = await GetById(id);

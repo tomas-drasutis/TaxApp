@@ -13,5 +13,6 @@ namespace TaxApp.Services.Services
         Task<Guid> Create(MunicipalityRequest model);
         Task Delete(Guid id);
         Task<Municipality> Update(Guid id, MunicipalityRequest model);
+        Task<decimal> GetTaxByDate(Guid id, DateTime date);
     }
 }

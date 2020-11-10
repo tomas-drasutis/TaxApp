@@ -8,6 +8,7 @@ namespace TaxApp.Services.Repositories
     public interface IMunicipalitiesRepository
     {
         Task<MunicipalityEntity> GetById(Guid id);
+        Task<MunicipalityEntity> GetByIdWithRelated(Guid id);
         Task<IEnumerable<MunicipalityEntity>> GetAll();
         Task<Guid> Add(MunicipalityEntity entity);
         Task Delete(Guid id);
