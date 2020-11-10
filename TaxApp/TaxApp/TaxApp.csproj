@@ -13,10 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaxApp.Models\TaxApp.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\TaxApp.Services\TaxApp.Services.csproj" />
   </ItemGroup>
 
 

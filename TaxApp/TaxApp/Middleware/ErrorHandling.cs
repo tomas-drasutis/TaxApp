@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using TaxApp.Models;
+using TaxApp.Models.Responses;
 
 namespace TaxApp.Middleware
 {
