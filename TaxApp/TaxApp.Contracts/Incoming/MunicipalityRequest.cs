@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TaxApp.Models.Requests
+namespace TaxApp.Contracts.Incoming
 {
     public class MunicipalityRequest
     {

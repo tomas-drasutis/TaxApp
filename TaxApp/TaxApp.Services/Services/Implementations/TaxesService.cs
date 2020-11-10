@@ -1,21 +1,31 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using TaxApp.Models.Responses;
+using TaxApp.Models.Domain;
+using TaxApp.Services.Repositories;
 
 namespace TaxApp.Services.Services.Implementations
 {
     public class TaxesService : ITaxesService
     {
-        public Task<IEnumerable<TaxResponse>> GetAll()
+        private readonly ITaxesRepository _taxesRepository;
+        private readonly IMapper _mapper;
+
+        public TaxesService(ITaxesRepository taxesRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _taxesRepository = taxesRepository;
+            _mapper = mapper;
         }
 
-        public Task<TaxResponse> GetById(Guid id)
+        public async Task<IEnumerable<Tax>> GetAll()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<Tax>>(await _taxesRepository.GetAll());
+        }
+
+        public async Task<Tax> GetById(Guid id)
+        {
+            return _mapper.Map<Tax>(await _taxesRepository.GetById(id));
         }
     }
 }

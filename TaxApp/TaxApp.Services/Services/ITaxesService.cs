@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TaxApp.Models.Responses;
+using TaxApp.Models.Domain;
 
 namespace TaxApp.Services.Services
 {
     public interface ITaxesService
     {
-        Task<TaxResponse> GetById(Guid id);
-        Task<IEnumerable<TaxResponse>> GetAll();
+        Task<Tax> GetById(Guid id);
+        Task<IEnumerable<Tax>> GetAll();
     }
 }

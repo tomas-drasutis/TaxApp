@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using TaxApp.Models.Responses;
+using TaxApp.Contracts.Outgoing;
 using TaxApp.Services.Services;
 
 namespace TaxApp.Controllers
@@ -14,10 +14,12 @@ namespace TaxApp.Controllers
     public class MunicipalitiesController : ControllerBase
     {
         private readonly IMunicipalitiesService _municipalitiesService;
+        private readonly IMapper _mapper;
 
-        public MunicipalitiesController(IMunicipalitiesService municipalitiesService)
+        public MunicipalitiesController(IMunicipalitiesService municipalitiesService, IMapper mapper)
         {
             _municipalitiesService = municipalitiesService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,14 +28,14 @@ namespace TaxApp.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            return new OkObjectResult(await _municipalitiesService.GetById(id));
+            return new OkObjectResult(_mapper.Map<MunicipalityResponse>(await _municipalitiesService.GetById(id)));
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<MunicipalityResponse>), 200)]
         public async Task<IActionResult> GetAll()
         {
-            return new OkObjectResult(await _municipalitiesService.GetAll());
+            return new OkObjectResult(_mapper.Map<IEnumerable<MunicipalityResponse>>(await _municipalitiesService.GetAll()));
         }
     }
 }

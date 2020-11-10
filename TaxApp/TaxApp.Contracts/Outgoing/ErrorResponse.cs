@@ -1,4 +1,4 @@
-﻿namespace TaxApp.Models.Responses
+﻿namespace TaxApp.Contracts.Outgoing
 {
     public class ErrorResponse
     {

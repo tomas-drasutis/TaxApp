@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxApp.UnitTests", "TaxApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxApp.IntegrationTests", "TaxApp.IntegrationTests\TaxApp.IntegrationTests.csproj", "{CA010707-2DE6-4658-9210-EAF857A8F4E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxApp.Contracts", "TaxApp.Contracts\TaxApp.Contracts.csproj", "{B16495A9-3203-44D5-8307-EC65C7FB121D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{CA010707-2DE6-4658-9210-EAF857A8F4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA010707-2DE6-4658-9210-EAF857A8F4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA010707-2DE6-4658-9210-EAF857A8F4E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16495A9-3203-44D5-8307-EC65C7FB121D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16495A9-3203-44D5-8307-EC65C7FB121D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16495A9-3203-44D5-8307-EC65C7FB121D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16495A9-3203-44D5-8307-EC65C7FB121D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

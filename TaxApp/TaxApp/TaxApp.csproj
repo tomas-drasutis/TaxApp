@@ -7,12 +7,19 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaxApp.Contracts\TaxApp.Contracts.csproj" />
     <ProjectReference Include="..\TaxApp.Models\TaxApp.Models.csproj" />
+    <ProjectReference Include="..\TaxApp.Persistance\TaxApp.Persistance.csproj" />
     <ProjectReference Include="..\TaxApp.Services\TaxApp.Services.csproj" />
   </ItemGroup>
 

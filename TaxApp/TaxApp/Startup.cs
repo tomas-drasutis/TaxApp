@@ -1,10 +1,19 @@
 using Autofac;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 using TaxApp.Middleware;
+using TaxApp.Persistance;
+using TaxApp.Services.Mapper;
+using TaxApp.Services.Repositories;
+using TaxApp.Services.Repositories.Implementations;
+using TaxApp.Services.Services;
+using TaxApp.Services.Services.Implementations;
 
 namespace TaxApp
 {
@@ -21,12 +30,18 @@ namespace TaxApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureDatabase(services);
+            ConfigureMappers(services);
+
             services.AddControllers();
 
-            services.AddSwaggerGen(x =>
-            {
-                x.SwaggerDoc("v1", new OpenApiInfo { Title = ServiceName, Version = "v1" });
-            });
+            services.AddSwaggerGen();
+
+            services.AddScoped<IMunicipalitiesService, MunicipalitiesService>();
+            services.AddScoped<ITaxesService, TaxesService>();
+
+            services.AddScoped<IMunicipalitiesRepository, MunicipalitiesRepository>();
+            services.AddScoped<ITaxesRepository, TaxesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,9 +67,29 @@ namespace TaxApp
             });
         }
 
-        public void ConfigureContainer(ContainerBuilder builder)
+        private void ConfigureDatabase(IServiceCollection services)
         {
-            builder.RegisterModule(new AutofacModule());
+            var connectionString = Configuration.GetSection("DatabaseConnectionString").Value;
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentNullException(nameof(connectionString), "Database connection string not found");
+
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            }, ServiceLifetime.Transient);
+        }
+
+        private static void ConfigureMappers(IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MapperProfile>();
+            });
+
+            var mapper = new Mapper(mapperConfig);
+
+            services.AddSingleton<IMapper>(x => mapper);
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using TaxApp.Models.Responses;
+using TaxApp.Contracts.Outgoing;
 
 namespace TaxApp.Middleware
 {
