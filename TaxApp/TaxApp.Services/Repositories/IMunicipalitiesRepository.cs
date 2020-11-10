@@ -9,5 +9,8 @@ namespace TaxApp.Services.Repositories
     {
         Task<MunicipalityEntity> GetById(Guid id);
         Task<IEnumerable<MunicipalityEntity>> GetAll();
+        Task<Guid> Add(MunicipalityEntity entity);
+        Task Delete(Guid id);
+        Task<MunicipalityEntity> Update(Guid id, MunicipalityEntity entity);
     }
 }

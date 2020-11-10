@@ -11,11 +11,13 @@ namespace TaxApp.Services.Mapper
         public MapperProfile()
         {
             CreateMap<TaxRequest, Tax>();
+            CreateMap<TaxRequest, TaxEntity>();
             CreateMap<Tax, TaxEntity>();
             CreateMap<TaxEntity, Tax>();
             CreateMap<Tax, TaxResponse>();
 
             CreateMap<MunicipalityRequest, Municipality>();
+            CreateMap<MunicipalityRequest, MunicipalityEntity>();
             CreateMap<Municipality, MunicipalityEntity>();
             CreateMap<MunicipalityEntity, Municipality>();
             CreateMap<Municipality, MunicipalityResponse>();

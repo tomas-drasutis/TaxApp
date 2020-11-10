@@ -1,12 +1,10 @@
-using Autofac;
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using System;
 using TaxApp.Middleware;
 using TaxApp.Persistance;
 using TaxApp.Services.Mapper;
@@ -33,7 +31,10 @@ namespace TaxApp
             ConfigureDatabase(services);
             ConfigureMappers(services);
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+            });
 
             services.AddSwaggerGen();
 
@@ -47,6 +48,8 @@ namespace TaxApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ErrorHandling>();
+
             app.UseSwagger(c =>
             {
                 c.RouteTemplate = "swagger/{documentName}/swagger.json";

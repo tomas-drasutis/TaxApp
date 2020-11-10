@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TaxApp.Contracts.Incoming;
 using TaxApp.Contracts.Outgoing;
 using TaxApp.Models.Domain;
+using TaxApp.Models.Entities;
 using TaxApp.Services.Repositories;
 
 namespace TaxApp.Services.Services.Implementations
@@ -19,6 +21,16 @@ namespace TaxApp.Services.Services.Implementations
             _mapper = mapper;
         }
 
+        public async Task<Guid> Create(MunicipalityRequest model)
+        {
+            return await _municipalitiesRepository.Add(_mapper.Map<MunicipalityEntity>(model));
+        }
+
+        public async Task Delete(Guid id)
+        {
+            await _municipalitiesRepository.Delete(id);
+        }
+
         public async Task<IEnumerable<Municipality>> GetAll()
         {
             return _mapper.Map<IEnumerable<Municipality>>(await _municipalitiesRepository.GetAll());
@@ -27,6 +39,11 @@ namespace TaxApp.Services.Services.Implementations
         public async Task<Municipality> GetById(Guid id)
         {
             return _mapper.Map<Municipality>(await _municipalitiesRepository.GetById(id));
+        }
+
+        public async Task<Municipality> Update(Guid id, MunicipalityRequest model)
+        {
+            return _mapper.Map<Municipality>(await _municipalitiesRepository.Update(id, _mapper.Map<MunicipalityEntity>(model)));
         }
     }
 }
