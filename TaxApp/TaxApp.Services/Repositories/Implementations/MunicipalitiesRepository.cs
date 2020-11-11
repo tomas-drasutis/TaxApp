@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TaxApp.Models.Entities;
 using TaxApp.Persistance;
+using TaxApp.Services.Exceptions;
 
 namespace TaxApp.Services.Repositories.Implementations
 {
@@ -43,7 +44,7 @@ namespace TaxApp.Services.Repositories.Implementations
 
             if (municipality == null)
             {
-                throw new Exception();
+                throw new ServiceException(ServiceExceptionType.NotFound, $"Municipality (id: {id}) was not found.");
             }
 
             return municipality;
@@ -57,7 +58,7 @@ namespace TaxApp.Services.Repositories.Implementations
 
             if (municipality == null)
             {
-                throw new Exception();
+                throw new ServiceException(ServiceExceptionType.NotFound, $"Municipality (id: {id}) was not found.");
             }
 
             return municipality;

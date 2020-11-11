@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using TaxApp.Contracts.Outgoing;
+using TaxApp.Services.Exceptions;
 
 namespace TaxApp.Middleware
 {
@@ -24,6 +25,26 @@ namespace TaxApp.Middleware
             try
             {
                 await _next(context);
+            }
+            catch (ServiceException e)
+            {
+                int statusCode;
+
+                switch (e.Type)
+                {
+                    case ServiceExceptionType.NotFound:
+                        statusCode = 404;
+                        break;
+                    case ServiceExceptionType.AlreadyExists:
+                        statusCode = 409;
+                        break;
+                    default:
+                        statusCode = 400;
+                        break;
+                }
+
+                _logger.LogError(e, $"Exception occured in method {context.Request.GetDisplayUrl()}");
+                await WriteErrorResponse(context.Response, statusCode, e.Type.ToString(), e.Message);
             }
             catch (Exception e)
             {

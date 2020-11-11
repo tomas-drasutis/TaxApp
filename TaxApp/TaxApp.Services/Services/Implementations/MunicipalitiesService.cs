@@ -7,6 +7,7 @@ using TaxApp.Contracts.Incoming;
 using TaxApp.Models.Domain;
 using TaxApp.Models.Entities;
 using TaxApp.Services.DomainServices;
+using TaxApp.Services.Exceptions;
 using TaxApp.Services.Repositories;
 
 namespace TaxApp.Services.Services.Implementations
@@ -52,7 +53,7 @@ namespace TaxApp.Services.Services.Implementations
 
             if (!taxesByDate.Any())
             {
-                throw new Exception();
+                throw new ServiceException(ServiceExceptionType.NotFound, $"No taxes found for {municipality.Name} (id: {municipality.Id}) on {date}");
             }
 
             return taxesByDate

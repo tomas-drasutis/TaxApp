@@ -1,5 +1,6 @@
 ﻿using System;
 using TaxApp.Services.DomainServices;
+using TaxApp.Services.Exceptions;
 
 namespace TaxApp.Services.DomainService.Implementations
 {
@@ -25,7 +26,7 @@ namespace TaxApp.Services.DomainService.Implementations
             if (startDate.DayOfWeek == DayOfWeek.Monday && periodLength == daysInWeek)
                 return;
 
-            throw new Exception();
+            throw new ServiceException(ServiceExceptionType.InvalidDate, "Invalid period range between start date and end date.");
         }
     }
 }
