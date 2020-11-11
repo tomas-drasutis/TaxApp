@@ -44,7 +44,7 @@ namespace TaxApp.Services.Repositories.Implementations
 
             if (tax == null)
             {
-                throw new ServiceException(ServiceExceptionType.NotFound, $"Tax (id: {id}) was not found.");
+                throw new NotFoundException($"Tax (id: {id}) was not found.");
             }
 
             return tax;

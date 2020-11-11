@@ -53,7 +53,7 @@ namespace TaxApp.Services.Services.Implementations
 
             if (!taxesByDate.Any())
             {
-                throw new ServiceException(ServiceExceptionType.NotFound, $"No taxes found for {municipality.Name} (id: {municipality.Id}) on {date}");
+                throw new NotFoundException($"No taxes found for {municipality.Name} (id: {municipality.Id}) on {date}");
             }
 
             return taxesByDate

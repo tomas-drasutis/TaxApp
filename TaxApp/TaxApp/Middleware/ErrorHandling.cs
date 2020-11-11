@@ -26,25 +26,15 @@ namespace TaxApp.Middleware
             {
                 await _next(context);
             }
-            catch (ServiceException e)
+            catch (NotFoundException e)
             {
-                int statusCode;
-
-                switch (e.Type)
-                {
-                    case ServiceExceptionType.NotFound:
-                        statusCode = 404;
-                        break;
-                    case ServiceExceptionType.AlreadyExists:
-                        statusCode = 409;
-                        break;
-                    default:
-                        statusCode = 400;
-                        break;
-                }
-
                 _logger.LogError(e, $"Exception occured in method {context.Request.GetDisplayUrl()}");
-                await WriteErrorResponse(context.Response, statusCode, e.Type.ToString(), e.Message);
+                await WriteErrorResponse(context.Response, 404, e.ToString(), e.Message);
+            }
+            catch (TaxAppValidationException e)
+            {
+                _logger.LogError(e, $"Exception occured in method {context.Request.GetDisplayUrl()}");
+                await WriteErrorResponse(context.Response, 400, e.ToString(), e.Message);
             }
             catch (Exception e)
             {

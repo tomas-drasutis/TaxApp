@@ -44,7 +44,7 @@ namespace TaxApp.Services.Repositories.Implementations
 
             if (municipality == null)
             {
-                throw new ServiceException(ServiceExceptionType.NotFound, $"Municipality (id: {id}) was not found.");
+                throw new NotFoundException($"Municipality (id: {id}) was not found.");
             }
 
             return municipality;
@@ -58,7 +58,7 @@ namespace TaxApp.Services.Repositories.Implementations
 
             if (municipality == null)
             {
-                throw new ServiceException(ServiceExceptionType.NotFound, $"Municipality (id: {id}) was not found.");
+                throw new NotFoundException($"Municipality (id: {id}) was not found.");
             }
 
             return municipality;

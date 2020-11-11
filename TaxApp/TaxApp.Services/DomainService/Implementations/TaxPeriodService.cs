@@ -20,13 +20,13 @@ namespace TaxApp.Services.DomainService.Implementations
             if (startDate.DayOfYear == 1 && periodLength == daysInYear)
                 return;
 
-            if (startDate.Month == 1 && periodLength == daysInMonth)
+            if (startDate.Day == 1 && periodLength == daysInMonth)
                 return;
 
             if (startDate.DayOfWeek == DayOfWeek.Monday && periodLength == daysInWeek)
                 return;
 
-            throw new ServiceException(ServiceExceptionType.InvalidDate, "Invalid period range between start date and end date.");
+            throw new TaxAppValidationException("Invalid period range between start date and end date.");
         }
     }
 }
